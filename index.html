@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      // Polyfill for process.env to prevent crashes in browser environments.
+      // The Gemini service expects process.env.API_KEY to exist.
+      // This ensures the app can load without a ReferenceError, fixing the blank screen issue.
+      window.process = { env: { API_KEY: '' } };
+    </script>
+    <script>
+      // This script dynamically sets the base URL for the page.
+      // This is crucial for single-page applications (SPAs) on GitHub Pages,
+      // where the project lives in a subdirectory (e.g., /repo-name/).
+      // It ensures that all relative asset paths (like for CSS, JS, and images)
+      // resolve correctly from the project's root, even when the browser's
+      // URL is a "deep link" (e.g., /repo-name/some-route).
+      (function() {
+        const path = window.location.pathname;
+        const repoName = path.split('/')[1];
+        if (repoName) {
+          const base = document.createElement('base');
+          base.href = '/' + repoName + '/';
+          document.head.prepend(base);
+        }
+      })();
+    </script>
+    <link rel="icon" type="image/svg+xml" href="vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Badminton Club Manager</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'brand-blue': '#0077b6',
+              'brand-secondary': '#00b4d8',
+              'brand-light': '#caf0f8',
+              'shuttle-yellow': '#ffde00',
+            }
+          }
+        }
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.22.0",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "firebase/app": "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js",
+    "firebase/auth": "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js",
+    "firebase/firestore": "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js",
+    "firebase/": "https://aistudiocdn.com/firebase@^12.3.0/"
+  }
+}
+</script>
+</head>
+  <body class="bg-gray-100">
+    <div id="root"></div>
+    <script type="module" src="index.js"></script>
+  </body>
+</html>
