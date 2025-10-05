@@ -21,8 +21,8 @@ export const DuesTracker = ({ members, onToggleDues, currentUser }) => {
     if (members.length === 0) {
         return (
             React.createElement('div', { className: "text-center py-12" },
-                React.createElement('h2', { className: "text-xl font-semibold text-gray-600" }, "No members to track."),
-                React.createElement('p', { className: "text-gray-500 mt-2" }, "Register members first to manage their dues.")
+                React.createElement('h2', { className: "text-xl font-semibold text-gray-600" }, "Nenhum membro para acompanhar."),
+                React.createElement('p', { className: "text-gray-500 mt-2" }, "Cadastre membros primeiro para gerenciar suas mensalidades.")
             )
         )
     }
@@ -32,13 +32,13 @@ export const DuesTracker = ({ members, onToggleDues, currentUser }) => {
 
     return (
         React.createElement('div', { className: "bg-white p-6 rounded-lg shadow-lg max-w-full mx-auto" },
-            React.createElement('h2', { className: "text-2xl font-bold mb-6 text-brand-blue" }, "회비 납부 현황"),
+            React.createElement('h2', { className: "text-2xl font-bold mb-6 text-brand-blue" }, "Status de Pagamento de Mensalidades"),
             React.createElement('div', { className: "overflow-x-auto" },
                 React.createElement('table', { className: "min-w-full divide-y divide-gray-200" },
                     React.createElement('thead', { className: "bg-gray-50" },
                         React.createElement('tr', null,
-                            React.createElement('th', { scope: "col", className: "px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sticky left-0 bg-gray-50 z-10" }, "이름"),
-                            React.createElement('th', { scope: "col", className: "px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" }, "등급"),
+                            React.createElement('th', { scope: "col", className: "px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sticky left-0 bg-gray-50 z-10" }, "Nome"),
+                            React.createElement('th', { scope: "col", className: "px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" }, "Nível"),
                             months.map(month => (
                                React.createElement('th', { key: month, scope: "col", className: "px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider" }, month)
                             ))
@@ -58,7 +58,7 @@ export const DuesTracker = ({ members, onToggleDues, currentUser }) => {
                                                     onClick: isAdmin ? () => onToggleDues(member.id, month) : undefined,
                                                     className: `px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${member.dues?.[month] ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'} ${isAdmin ? 'cursor-pointer' : 'cursor-default'}`
                                                 },
-                                                member.dues?.[month] ? '납부' : '미납'
+                                                member.dues?.[month] ? 'Pago' : 'Pendente'
                                             )
                                         )
                                     ))

@@ -41,8 +41,8 @@ export const MemberList: React.FC<MemberListProps> = ({ members, onEdit, onDelet
     if (members.length === 0) {
         return (
             <div className="text-center py-12">
-                <h2 className="text-xl font-semibold text-gray-600">No members registered yet.</h2>
-                <p className="text-gray-500 mt-2">Go to the 'Register Member' tab to add the first member.</p>
+                <h2 className="text-xl font-semibold text-gray-600">Nenhum membro cadastrado ainda.</h2>
+                <p className="text-gray-500 mt-2">Vá para a aba 'Cadastrar Membro' para adicionar o primeiro membro.</p>
             </div>
         )
     }
@@ -53,7 +53,7 @@ export const MemberList: React.FC<MemberListProps> = ({ members, onEdit, onDelet
     return (
         <div>
             <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-bold text-gray-700">총 회원: {members.length}명</h2>
+                <h2 className="text-xl font-bold text-gray-700">Total de Membros: {members.length}</h2>
                 <div className="flex items-center space-x-2">
                     <button
                         onClick={() => setViewMode('grid')}
@@ -91,24 +91,24 @@ export const MemberList: React.FC<MemberListProps> = ({ members, onEdit, onDelet
                                 <div className="p-4 flex-grow">
                                     <h3 className="text-xl font-bold text-brand-blue">{member.name}</h3>
                                     <p className="text-gray-600 text-sm truncate" title={member.email}>{member.email}</p>
-                                    <p className="text-gray-600 text-sm">{member.age}세, {member.gender}</p>
+                                    <p className="text-gray-600 text-sm">{member.age} anos, {member.gender}</p>
                                     <div className="mt-2">
                                         <span className="inline-block bg-brand-light text-brand-blue text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">
-                                            등급: {skillLabel}
+                                            Nível: {skillLabel}
                                         </span>
                                         <span className={`inline-block text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full ${duesPaidThisMonth ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                                            금월 회비: {duesPaidThisMonth ? '납부' : '미납'}
+                                            Mensalidade: {duesPaidThisMonth ? 'Pago' : 'Pendente'}
                                         </span>
                                     </div>
                                 </div>
                                 <div className="px-4 py-2 bg-gray-50 flex justify-end space-x-2 h-12 items-center">
                                     {currentUser.role === Role.ADMIN ? (
                                         <>
-                                            <button onClick={() => onEdit(member)} className="text-sm text-blue-600 hover:text-blue-800 font-medium">Edit</button>
-                                            <button onClick={() => onDelete(member.id)} className="text-sm text-red-600 hover:text-red-800 font-medium">Delete</button>
+                                            <button onClick={() => onEdit(member)} className="text-sm text-blue-600 hover:text-blue-800 font-medium">Editar</button>
+                                            <button onClick={() => onDelete(member.id)} className="text-sm text-red-600 hover:text-red-800 font-medium">Excluir</button>
                                         </>
                                     ) : currentUser.id === member.id ? (
-                                        <button onClick={() => onEdit(member)} className="text-sm text-blue-600 hover:text-blue-800 font-medium">Edit</button>
+                                        <button onClick={() => onEdit(member)} className="text-sm text-blue-600 hover:text-blue-800 font-medium">Editar</button>
                                     ) : null}
                                 </div>
                             </div>
@@ -121,12 +121,12 @@ export const MemberList: React.FC<MemberListProps> = ({ members, onEdit, onDelet
                         <table className="min-w-full divide-y divide-gray-200">
                             <thead className="bg-gray-50">
                                 <tr>
-                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">이름</th>
-                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">이메일</th>
-                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">등급</th>
-                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">나이</th>
-                                    <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">금월 회비</th>
-                                    <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">관리</th>
+                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome</th>
+                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">E-mail</th>
+                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nível</th>
+                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Idade</th>
+                                    <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Mensalidade do Mês</th>
+                                    <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
@@ -158,20 +158,20 @@ export const MemberList: React.FC<MemberListProps> = ({ members, onEdit, onDelet
                                                     {skillLabel}
                                                 </span>
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{member.age}세</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{member.age} anos</td>
                                             <td className="px-6 py-4 whitespace-nowrap text-center">
                                                  <span className={`inline-block text-xs font-semibold px-2.5 py-0.5 rounded-full ${duesPaidThisMonth ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                                                    {duesPaidThisMonth ? '납부' : '미납'}
+                                                    {duesPaidThisMonth ? 'Pago' : 'Pendente'}
                                                 </span>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-4">
                                                 {currentUser.role === Role.ADMIN ? (
                                                     <>
-                                                        <button onClick={() => onEdit(member)} className="text-blue-600 hover:text-blue-900">Edit</button>
-                                                        <button onClick={() => onDelete(member.id)} className="text-red-600 hover:text-red-900">Delete</button>
+                                                        <button onClick={() => onEdit(member)} className="text-blue-600 hover:text-blue-900">Editar</button>
+                                                        <button onClick={() => onDelete(member.id)} className="text-red-600 hover:text-red-900">Excluir</button>
                                                     </>
                                                 ) : currentUser.id === member.id ? (
-                                                    <button onClick={() => onEdit(member)} className="text-blue-600 hover:text-blue-900">Edit</button>
+                                                    <button onClick={() => onEdit(member)} className="text-blue-600 hover:text-blue-900">Editar</button>
                                                 ) : null}
                                             </td>
                                         </tr>

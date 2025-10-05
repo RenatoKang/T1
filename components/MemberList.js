@@ -34,8 +34,8 @@ export const MemberList = ({ members, onEdit, onDelete, currentUser }) => {
     if (members.length === 0) {
         return (
             React.createElement('div', { className: "text-center py-12" },
-                React.createElement('h2', { className: "text-xl font-semibold text-gray-600" }, "No members registered yet."),
-                React.createElement('p', { className: "text-gray-500 mt-2" }, "Go to the 'Register Member' tab to add the first member.")
+                React.createElement('h2', { className: "text-xl font-semibold text-gray-600" }, "Nenhum membro cadastrado ainda."),
+                React.createElement('p', { className: "text-gray-500 mt-2" }, "Vá para a aba 'Cadastrar Membro' para adicionar o primeiro membro.")
             )
         )
     }
@@ -60,24 +60,24 @@ export const MemberList = ({ members, onEdit, onDelete, currentUser }) => {
                         React.createElement('div', { className: "p-4 flex-grow" },
                             React.createElement('h3', { className: "text-xl font-bold text-brand-blue" }, member.name),
                             React.createElement('p', { className: "text-gray-600 text-sm truncate", title: member.email }, member.email),
-                            React.createElement('p', { className: "text-gray-600 text-sm" }, `${member.age}세, ${member.gender}`),
+                            React.createElement('p', { className: "text-gray-600 text-sm" }, `${member.age} anos, ${member.gender}`),
                             React.createElement('div', { className: "mt-2" },
                                 React.createElement('span', { className: "inline-block bg-brand-light text-brand-blue text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full" },
-                                    `등급: ${skillLabel}`
+                                    `Nível: ${skillLabel}`
                                 ),
                                 React.createElement('span', { className: `inline-block text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full ${duesPaidThisMonth ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}` },
-                                    `금월 회비: ${duesPaidThisMonth ? '납부' : '미납'}`
+                                    `Mensalidade: ${duesPaidThisMonth ? 'Pago' : 'Pendente'}`
                                 )
                             )
                         ),
                         React.createElement('div', { className: "px-4 py-2 bg-gray-50 flex justify-end space-x-2 h-12 items-center" },
                            currentUser.role === Role.ADMIN ? (
                                 React.createElement(React.Fragment, null,
-                                    React.createElement('button', { onClick: () => onEdit(member), className: "text-sm text-blue-600 hover:text-blue-800 font-medium" }, "Edit"),
-                                    React.createElement('button', { onClick: () => onDelete(member.id), className: "text-sm text-red-600 hover:text-red-800 font-medium" }, "Delete")
+                                    React.createElement('button', { onClick: () => onEdit(member), className: "text-sm text-blue-600 hover:text-blue-800 font-medium" }, "Editar"),
+                                    React.createElement('button', { onClick: () => onDelete(member.id), className: "text-sm text-red-600 hover:text-red-800 font-medium" }, "Excluir")
                                 )
                             ) : currentUser.id === member.id ? (
-                                React.createElement('button', { onClick: () => onEdit(member), className: "text-sm text-blue-600 hover:text-blue-800 font-medium" }, "Edit")
+                                React.createElement('button', { onClick: () => onEdit(member), className: "text-sm text-blue-600 hover:text-blue-800 font-medium" }, "Editar")
                             ) : null
                         )
                     )
@@ -92,12 +92,12 @@ export const MemberList = ({ members, onEdit, onDelete, currentUser }) => {
                 React.createElement('table', { className: "min-w-full divide-y divide-gray-200" },
                     React.createElement('thead', { className: "bg-gray-50" },
                         React.createElement('tr', null,
-                            React.createElement('th', { scope: "col", className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" }, "이름"),
-                            React.createElement('th', { scope: "col", className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" }, "이메일"),
-                            React.createElement('th', { scope: "col", className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" }, "등급"),
-                            React.createElement('th', { scope: "col", className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" }, "나이"),
-                            React.createElement('th', { scope: "col", className: "px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider" }, "금월 회비"),
-                            React.createElement('th', { scope: "col", className: "px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider" }, "관리")
+                            React.createElement('th', { scope: "col", className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" }, "Nome"),
+                            React.createElement('th', { scope: "col", className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" }, "E-mail"),
+                            React.createElement('th', { scope: "col", className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" }, "Nível"),
+                            React.createElement('th', { scope: "col", className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" }, "Idade"),
+                            React.createElement('th', { scope: "col", className: "px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider" }, "Mensalidade do Mês"),
+                            React.createElement('th', { scope: "col", className: "px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider" }, "Ações")
                         )
                     ),
                     React.createElement('tbody', { className: "bg-white divide-y divide-gray-200" },
@@ -129,20 +129,20 @@ export const MemberList = ({ members, onEdit, onDelete, currentUser }) => {
                                             skillLabel
                                         )
                                     ),
-                                    React.createElement('td', { className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500" }, `${member.age}세`),
+                                    React.createElement('td', { className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500" }, `${member.age} anos`),
                                     React.createElement('td', { className: "px-6 py-4 whitespace-nowrap text-center" },
                                          React.createElement('span', { className: `inline-block text-xs font-semibold px-2.5 py-0.5 rounded-full ${duesPaidThisMonth ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}` },
-                                            duesPaidThisMonth ? '납부' : '미납'
+                                            duesPaidThisMonth ? 'Pago' : 'Pendente'
                                         )
                                     ),
                                     React.createElement('td', { className: "px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-4" },
                                         currentUser.role === Role.ADMIN ? (
                                             React.createElement(React.Fragment, null,
-                                                React.createElement('button', { onClick: () => onEdit(member), className: "text-blue-600 hover:text-blue-900" }, "Edit"),
-                                                React.createElement('button', { onClick: () => onDelete(member.id), className: "text-red-600 hover:text-red-900" }, "Delete")
+                                                React.createElement('button', { onClick: () => onEdit(member), className: "text-blue-600 hover:text-blue-900" }, "Editar"),
+                                                React.createElement('button', { onClick: () => onDelete(member.id), className: "text-red-600 hover:text-red-900" }, "Excluir")
                                             )
                                         ) : currentUser.id === member.id ? (
-                                            React.createElement('button', { onClick: () => onEdit(member), className: "text-blue-600 hover:text-blue-900" }, "Edit")
+                                            React.createElement('button', { onClick: () => onEdit(member), className: "text-blue-600 hover:text-blue-900" }, "Editar")
                                         ) : null
                                     )
                                 )
@@ -157,7 +157,7 @@ export const MemberList = ({ members, onEdit, onDelete, currentUser }) => {
     return (
         React.createElement('div', null,
             React.createElement('div', { className: "flex justify-between items-center mb-6" },
-                React.createElement('h2', { className: "text-xl font-bold text-gray-700" }, `총 회원: ${members.length}명`),
+                React.createElement('h2', { className: "text-xl font-bold text-gray-700" }, `Total de Membros: ${members.length}`),
                 React.createElement('div', { className: "flex items-center space-x-2" },
                     React.createElement('button',
                         {

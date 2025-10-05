@@ -131,7 +131,7 @@ export const MemberForm: React.FC<MemberFormProps> = ({ onUpdate, onCancel, exis
     const file = e.target.files?.[0];
     if (file) {
       if (!file.type.startsWith('image/')) {
-        alert('Please upload an image file.');
+        alert('Por favor, envie um arquivo de imagem.');
         return;
       }
       try {
@@ -140,7 +140,7 @@ export const MemberForm: React.FC<MemberFormProps> = ({ onUpdate, onCancel, exis
         setPreview(resizedDataUrl);
       } catch (error) {
         console.error("Image processing failed:", error);
-        alert("There was an error processing your image.");
+        alert("Ocorreu um erro ao processar sua imagem.");
       }
     }
   };
@@ -154,18 +154,18 @@ export const MemberForm: React.FC<MemberFormProps> = ({ onUpdate, onCancel, exis
         // Handle password update if editing self
         if (isEditingSelf && newPassword) {
             if (newPassword !== confirmPassword) {
-                setPasswordMessage({ type: 'error', text: 'Passwords do not match.' });
+                setPasswordMessage({ type: 'error', text: 'As senhas não coincidem.' });
                 return;
             }
             if (newPassword.length < 6) {
-                setPasswordMessage({ type: 'error', text: 'Password must be at least 6 characters long.' });
+                setPasswordMessage({ type: 'error', text: 'A senha deve ter pelo menos 6 caracteres.' });
                 return;
             }
             try {
                 const user = auth.currentUser;
                 if (user) {
                     await updatePassword(user, newPassword);
-                    setPasswordMessage({ type: 'success', text: 'Password updated successfully!' });
+                    setPasswordMessage({ type: 'success', text: 'Senha atualizada com sucesso!' });
                     setNewPassword('');
                     setConfirmPassword('');
                 } else {
@@ -173,7 +173,7 @@ export const MemberForm: React.FC<MemberFormProps> = ({ onUpdate, onCancel, exis
                 }
             } catch (error: any) {
                 console.error("Password update failed:", error);
-                setPasswordMessage({ type: 'error', text: `Failed to update password: ${error.message}` });
+                setPasswordMessage({ type: 'error', text: `Falha ao atualizar a senha: ${error.message}` });
                 return; // Stop if password update fails
             }
         }
@@ -186,7 +186,7 @@ export const MemberForm: React.FC<MemberFormProps> = ({ onUpdate, onCancel, exis
     } else {
         // Register new member
         if (!member.name || !member.age || !email || !password) {
-          alert('Please fill in all fields.');
+          alert('Por favor, preencha todos os campos.');
           return;
         }
         try {
@@ -212,36 +212,36 @@ export const MemberForm: React.FC<MemberFormProps> = ({ onUpdate, onCancel, exis
 
   return (
     <div className="bg-white p-8 rounded-lg shadow-lg max-w-2xl mx-auto">
-      <h2 className="text-2xl font-bold mb-6 text-brand-blue">{existingMember ? '회원 정보 수정' : '신규 회원 등록'}</h2>
+      <h2 className="text-2xl font-bold mb-6 text-brand-blue">{existingMember ? 'Editar Informações do Membro' : 'Cadastrar Novo Membro'}</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="flex flex-col items-center space-y-4">
           <div className="w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
             {preview ? <img src={preview} alt="Profile Preview" className="w-full h-full object-cover" /> : <UserIcon className="w-16 h-16 text-gray-400" />}
           </div>
           <label className="cursor-pointer bg-brand-secondary text-white px-4 py-2 rounded-md hover:bg-brand-blue transition-colors">
-            Upload Photo
+            Enviar Foto
             <input type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
           </label>
         </div>
         
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700">이름</label>
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700">Nome</label>
           <input type="text" name="name" id="name" value={member.name} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue" required />
         </div>
         
         {existingMember ? (
              <div>
-               <label htmlFor="email" className="block text-sm font-medium text-gray-700">이메일 (변경 불가)</label>
+               <label htmlFor="email" className="block text-sm font-medium text-gray-700">E-mail (não pode ser alterado)</label>
                <input type="email" name="email" id="email" value={email} readOnly className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 cursor-not-allowed" />
              </div>
         ) : (
             <>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">이메일</label>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">E-mail</label>
                   <input type="email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue" required />
                 </div>
                 <div>
-                  <label htmlFor="password"className="block text-sm font-medium text-gray-700">비밀번호</label>
+                  <label htmlFor="password"className="block text-sm font-medium text-gray-700">Senha</label>
                   <input type="password" name="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue" required />
                 </div>
             </>
@@ -249,21 +249,21 @@ export const MemberForm: React.FC<MemberFormProps> = ({ onUpdate, onCancel, exis
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label htmlFor="age" className="block text-sm font-medium text-gray-700">나이</label>
+            <label htmlFor="age" className="block text-sm font-medium text-gray-700">Idade</label>
             <input type="number" name="age" id="age" value={member.age} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue" required />
           </div>
           <div>
-            <label htmlFor="gender" className="block text-sm font-medium text-gray-700">성별</label>
+            <label htmlFor="gender" className="block text-sm font-medium text-gray-700">Gênero</label>
             <select name="gender" id="gender" value={member.gender} onChange={handleChange} className="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 focus:outline-none focus:ring-brand-blue focus:border-brand-blue rounded-md shadow-sm">
-              <option value={Gender.MALE}>남자</option>
-              <option value={Gender.FEMALE}>여자</option>
+              <option value={Gender.MALE}>Masculino</option>
+              <option value={Gender.FEMALE}>Feminino</option>
             </select>
           </div>
         </div>
 
         <div>
             <label htmlFor="skillLevel" className="block text-sm font-medium text-gray-700">
-                등급 {isSkillLevelDisabled && <span className="text-xs text-gray-500">(운영진만 변경 가능)</span>}
+                Nível {isSkillLevelDisabled && <span className="text-xs text-gray-500">(Somente administradores podem alterar)</span>}
             </label>
             <select
                 name="skillLevel"
@@ -283,13 +283,13 @@ export const MemberForm: React.FC<MemberFormProps> = ({ onUpdate, onCancel, exis
 
         {isEditingSelf && (
           <div className="pt-6 border-t space-y-4">
-            <h3 className="text-lg font-semibold text-gray-800">비밀번호 변경</h3>
+            <h3 className="text-lg font-semibold text-gray-800">Alterar Senha</h3>
              <div>
-                <label htmlFor="newPassword"className="block text-sm font-medium text-gray-700">새 비밀번호 (6자 이상)</label>
+                <label htmlFor="newPassword"className="block text-sm font-medium text-gray-700">Nova Senha (mínimo 6 caracteres)</label>
                 <input type="password" name="newPassword" id="newPassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue" />
             </div>
              <div>
-                <label htmlFor="confirmPassword"className="block text-sm font-medium text-gray-700">새 비밀번호 확인</label>
+                <label htmlFor="confirmPassword"className="block text-sm font-medium text-gray-700">Confirmar Nova Senha</label>
                 <input type="password" name="confirmPassword" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue" />
             </div>
             {passwordMessage && (
@@ -302,10 +302,10 @@ export const MemberForm: React.FC<MemberFormProps> = ({ onUpdate, onCancel, exis
 
         <div className="flex justify-end space-x-4 pt-4">
           <button type="button" onClick={onCancel} className="bg-gray-200 text-gray-800 font-bold py-2 px-6 rounded-lg hover:bg-gray-300">
-            Cancel
+            Cancelar
           </button>
           <button type="submit" className="bg-brand-blue text-white font-bold py-2 px-6 rounded-lg hover:bg-opacity-90">
-            {existingMember ? '정보 수정' : '회원 등록'}
+            {existingMember ? 'Salvar Alterações' : 'Cadastrar Membro'}
           </button>
         </div>
       </form>

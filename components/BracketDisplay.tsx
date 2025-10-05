@@ -84,7 +84,7 @@ export const BracketDisplay: React.FC<BracketDisplayProps> = ({ tournament, onUp
                 {rounds.map((round, roundIndex) => (
                     <div key={roundIndex} className="flex flex-col space-y-4 min-w-[280px]">
                         <h4 className="font-semibold text-center text-gray-700">
-                             {round.length === 1 ? '결승' : round.length === 2 ? '준결승' : `${round.length * 2}강`}
+                             {round.length === 1 ? 'Final' : round.length === 2 ? 'Semifinal' : `Rodada de ${round.length * 2}`}
                         </h4>
                         {round.map(match => (
                             <div key={match.id} className="bg-white p-3 rounded-md shadow">
@@ -139,7 +139,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, tournament, onUpdate, curr
             </div>
             {winner && isFinalMatch && (
                 <div className="mt-2 text-center font-bold text-shuttle-yellow bg-brand-blue p-2 rounded">
-                    🏆 우승: {formatPlayerName(winner)} 🏆
+                    🏆 Campeão: {formatPlayerName(winner)} 🏆
                 </div>
             )}
         </div>

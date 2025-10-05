@@ -1,4 +1,5 @@
 
+
 import React, { useState } from 'react';
 import { auth } from '../services/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
@@ -20,7 +21,7 @@ export const Login: React.FC<LoginProps> = ({ onNavigateToRegister }) => {
 
     const handleLoginClick = async () => {
         if (!email || !password) {
-            setError('이메일과 비밀번호를 입력해주세요.');
+            setError('Por favor, insira seu e-mail e senha.');
             return;
         }
         setError('');
@@ -29,7 +30,7 @@ export const Login: React.FC<LoginProps> = ({ onNavigateToRegister }) => {
             // onAuthStateChanged in App.tsx will handle successful login
         } catch (err: any) {
             console.error(err);
-            setError('로그인에 실패했습니다. 이메일 또는 비밀번호를 확인해주세요.');
+            setError('Falha no login. Verifique seu e-mail e senha.');
         }
     };
     
@@ -44,17 +45,17 @@ export const Login: React.FC<LoginProps> = ({ onNavigateToRegister }) => {
                 <div className="text-center">
                     <ShuttlecockIcon className="w-16 h-16 mx-auto text-brand-blue" />
                     <h1 className="mt-4 text-3xl font-bold text-gray-900">
-                        클럽 매니저 로그인
+                        Login do Gerenciador do Clube
                     </h1>
                     <p className="mt-2 text-sm text-gray-600">
-                        이메일과 비밀번호를 입력하여 로그인하세요.
+                        Faça login com seu e-mail e senha.
                     </p>
                 </div>
                 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                            이메일
+                            E-mail
                         </label>
                         <input 
                             id="email"
@@ -68,7 +69,7 @@ export const Login: React.FC<LoginProps> = ({ onNavigateToRegister }) => {
 
                     <div>
                         <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                           비밀번호
+                           Senha
                         </label>
                         <input 
                             id="password"
@@ -87,7 +88,7 @@ export const Login: React.FC<LoginProps> = ({ onNavigateToRegister }) => {
                             type="submit"
                             className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-brand-blue hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-blue"
                         >
-                            로그인
+                            Entrar
                         </button>
                         <div className="text-center">
                             <button
@@ -95,7 +96,7 @@ export const Login: React.FC<LoginProps> = ({ onNavigateToRegister }) => {
                                 onClick={onNavigateToRegister}
                                 className="font-medium text-sm text-brand-blue hover:text-brand-secondary"
                             >
-                                계정이 없으신가요? 회원 등록
+                                Não tem uma conta? Cadastre-se
                             </button>
                         </div>
                     </div>

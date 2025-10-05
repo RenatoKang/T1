@@ -16,7 +16,7 @@ export const Login = ({ onNavigateToRegister }) => {
 
     const handleLoginClick = async () => {
         if (!email || !password) {
-            setError('이메일과 비밀번호를 입력해주세요.');
+            setError('Por favor, insira seu e-mail e senha.');
             return;
         }
         setError('');
@@ -24,7 +24,7 @@ export const Login = ({ onNavigateToRegister }) => {
             await signInWithEmailAndPassword(auth, email, password);
         } catch (err) {
             console.error(err);
-            setError('로그인에 실패했습니다. 이메일 또는 비밀번호를 확인해주세요.');
+            setError('Falha no login. Verifique seu e-mail e senha.');
         }
     };
     
@@ -39,16 +39,16 @@ export const Login = ({ onNavigateToRegister }) => {
                 React.createElement('div', { className: "text-center" },
                     React.createElement(ShuttlecockIcon, { className: "w-16 h-16 mx-auto text-brand-blue" }),
                     React.createElement('h1', { className: "mt-4 text-3xl font-bold text-gray-900" },
-                        "클럽 매니저 로그인"
+                        "Login do Gerenciador do Clube"
                     ),
                     React.createElement('p', { className: "mt-2 text-sm text-gray-600" },
-                        "이메일과 비밀번호를 입력하여 로그인하세요."
+                        "Faça login com seu e-mail e senha."
                     )
                 ),
                 
                 React.createElement('form', { onSubmit: handleSubmit, className: "space-y-6" },
                     React.createElement('div', null,
-                        React.createElement('label', { htmlFor: "email", className: "block text-sm font-medium text-gray-700" }, "이메일"),
+                        React.createElement('label', { htmlFor: "email", className: "block text-sm font-medium text-gray-700" }, "E-mail"),
                         React.createElement('input', { 
                             id: "email",
                             type: "email",
@@ -59,7 +59,7 @@ export const Login = ({ onNavigateToRegister }) => {
                         })
                     ),
                     React.createElement('div', null,
-                        React.createElement('label', { htmlFor: "password", className: "block text-sm font-medium text-gray-700" }, "비밀번호"),
+                        React.createElement('label', { htmlFor: "password", className: "block text-sm font-medium text-gray-700" }, "Senha"),
                         React.createElement('input', { 
                             id: "password",
                             type: "password",
@@ -76,13 +76,13 @@ export const Login = ({ onNavigateToRegister }) => {
                         React.createElement('button', {
                             type: "submit",
                             className: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-brand-blue hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-blue"
-                        }, "로그인"),
+                        }, "Entrar"),
                         React.createElement('div', { className: "text-center" },
                             React.createElement('button', {
                                 type: "button",
                                 onClick: onNavigateToRegister,
                                 className: "font-medium text-sm text-brand-blue hover:text-brand-secondary"
-                            }, "계정이 없으신가요? 회원 등록")
+                            }, "Não tem uma conta? Cadastre-se")
                         )
                     )
                 )

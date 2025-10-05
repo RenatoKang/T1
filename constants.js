@@ -1,15 +1,14 @@
-
 import { SkillLevel } from './types.js';
 
 export const SKILL_LEVELS = [
-  { value: SkillLevel.MA, label: '남자 A 급' },
-  { value: SkillLevel.MB, label: '남자 B 급' },
-  { value: SkillLevel.MC, label: '남자 C 급' },
-  { value: SkillLevel.MD, label: '남자 D 급' },
-  { value: SkillLevel.WA, label: '여자 A 급' },
-  { value: SkillLevel.WB, label: '여자 B 급' },
-  { value: SkillLevel.WC, label: '여자 C 급' },
-  { value: SkillLevel.WD, label: '여자 D 급' },
+  { value: SkillLevel.MA, label: 'Masculino Nível A' },
+  { value: SkillLevel.MB, label: 'Masculino Nível B' },
+  { value: SkillLevel.MC, label: 'Masculino Nível C' },
+  { value: SkillLevel.MD, label: 'Masculino Nível D' },
+  { value: SkillLevel.WA, label: 'Feminino Nível A' },
+  { value: SkillLevel.WB, label: 'Feminino Nível B' },
+  { value: SkillLevel.WC, label: 'Feminino Nível C' },
+  { value: SkillLevel.WD, label: 'Feminino Nível D' },
 ];
 
-export const ADMIN_NAMES = ['박종태', '헤나또', '김성호', '박성실', '정문숙'];
+export const ADMIN_NAMES = ['박종태', '헤나또', '김성호', '박성실', '정문숙', 'admin1', 'admin2'];

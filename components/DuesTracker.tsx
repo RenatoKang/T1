@@ -26,8 +26,8 @@ export const DuesTracker: React.FC<DuesTrackerProps> = ({ members, onToggleDues,
     if (members.length === 0) {
         return (
             <div className="text-center py-12">
-                <h2 className="text-xl font-semibold text-gray-600">No members to track.</h2>
-                <p className="text-gray-500 mt-2">Register members first to manage their dues.</p>
+                <h2 className="text-xl font-semibold text-gray-600">Nenhum membro para acompanhar.</h2>
+                <p className="text-gray-500 mt-2">Cadastre membros primeiro para gerenciar suas mensalidades.</p>
             </div>
         )
     }
@@ -37,13 +37,13 @@ export const DuesTracker: React.FC<DuesTrackerProps> = ({ members, onToggleDues,
 
     return (
         <div className="bg-white p-6 rounded-lg shadow-lg max-w-full mx-auto">
-            <h2 className="text-2xl font-bold mb-6 text-brand-blue">회비 납부 현황</h2>
+            <h2 className="text-2xl font-bold mb-6 text-brand-blue">Status de Pagamento de Mensalidades</h2>
             <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                         <tr>
-                            <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sticky left-0 bg-gray-50 z-10">이름</th>
-                            <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">등급</th>
+                            <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sticky left-0 bg-gray-50 z-10">Nome</th>
+                            <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nível</th>
                             {months.map(month => (
                                <th key={month} scope="col" className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">{month}</th>
                             ))}
@@ -62,7 +62,7 @@ export const DuesTracker: React.FC<DuesTrackerProps> = ({ members, onToggleDues,
                                                 onClick={isAdmin ? () => onToggleDues(member.id, month) : undefined}
                                                 className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${member.dues?.[month] ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'} ${isAdmin ? 'cursor-pointer' : 'cursor-default'}`}
                                             >
-                                                {member.dues?.[month] ? '납부' : '미납'}
+                                                {member.dues?.[month] ? 'Pago' : 'Pendente'}
                                             </span>
                                         </td>
                                     ))}

@@ -1,5 +1,5 @@
 {
   "name": "Badminton Club Manager BR",
-  "description": "An application to manage badminton club members, dues, and generate tournament brackets. Register members with photos and skill levels, track payments, and create fair tournament matchups with the power of AI.",
+  "description": "Um aplicativo para gerenciar membros de um clube de badminton, mensalidades e gerar chaves de torneio. Cadastre membros com fotos e níveis de habilidade, acompanhe pagamentos e crie confrontos de torneio justos com o poder da IA.",
   "requestFramePermissions": []
 }

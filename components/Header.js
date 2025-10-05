@@ -11,10 +11,10 @@ const ShuttlecockIcon = ({ className }) => (
 
 export const Header = ({ currentView, onNavigate, memberCount, currentUser, onLogout }) => {
   const navItems = [
-    { view: View.ADD_MEMBER, label: '회원 등록', requiresMembers: false },
-    { view: View.MEMBERS, label: '회원 명단', requiresMembers: true },
-    { view: View.DUES, label: '회비 관리', requiresMembers: true },
-    { view: View.TOURNAMENT, label: '대진표 생성', requiresMembers: true },
+    { view: View.ADD_MEMBER, label: 'Cadastrar Membro', requiresMembers: false },
+    { view: View.MEMBERS, label: 'Lista de Membros', requiresMembers: true },
+    { view: View.DUES, label: 'Controle de Mensalidades', requiresMembers: true },
+    { view: View.TOURNAMENT, label: 'Gerar Chaves', requiresMembers: true },
   ];
 
   return (
@@ -23,16 +23,16 @@ export const Header = ({ currentView, onNavigate, memberCount, currentUser, onLo
         React.createElement('div', { className: "flex items-center justify-between h-20" },
           React.createElement('div', { className: "flex items-center" },
             React.createElement(ShuttlecockIcon, { className: "h-8 w-8 text-shuttle-yellow" }),
-            React.createElement('h1', { className: "text-2xl font-bold text-white ml-3" }, "배드민턴 클럽 매니저")
+            React.createElement('h1', { className: "text-2xl font-bold text-white ml-3" }, "Gerenciador do Clube de Badminton")
           ),
           currentUser && (
             React.createElement('div', { className: "flex items-center space-x-4" },
                 React.createElement('div', { className: "text-right text-white" },
-                    React.createElement('p', { className: "font-semibold" }, currentUser.name, " 님"),
-                    React.createElement('p', { className: "text-xs opacity-80" }, currentUser.role === 'ADMIN' ? '운영진' : '회원')
+                    React.createElement('p', { className: "font-semibold" }, currentUser.name),
+                    React.createElement('p', { className: "text-xs opacity-80" }, currentUser.role === 'ADMIN' ? 'Admin' : 'Membro')
                 ),
                 React.createElement('button', { onClick: onLogout, className: "text-sm bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded" },
-                  "로그아웃"
+                  "Sair"
                 )
             )
           )
@@ -51,7 +51,7 @@ export const Header = ({ currentView, onNavigate, memberCount, currentUser, onLo
                       ? 'bg-shuttle-yellow text-brand-blue'
                       : 'text-white hover:bg-brand-blue'
                   } ${isDisabled ? 'opacity-50 cursor-not-allowed' : ''}`,
-                  title: isDisabled ? '먼저 회원을 등록해주세요.' : ''
+                  title: isDisabled ? 'Cadastre um membro primeiro.' : ''
                 },
                 item.label
               )

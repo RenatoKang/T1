@@ -120,7 +120,7 @@ export const MemberForm = ({ onUpdate, onCancel, existingMember, isEditingSelf, 
     const file = e.target.files?.[0];
     if (file) {
       if (!file.type.startsWith('image/')) {
-        alert('Please upload an image file.');
+        alert('Por favor, envie um arquivo de imagem.');
         return;
       }
       try {
@@ -129,7 +129,7 @@ export const MemberForm = ({ onUpdate, onCancel, existingMember, isEditingSelf, 
         setPreview(resizedDataUrl);
       } catch (error) {
         console.error("Image processing failed:", error);
-        alert("There was an error processing your image.");
+        alert("Ocorreu um erro ao processar sua imagem.");
       }
     }
   };
@@ -142,18 +142,18 @@ export const MemberForm = ({ onUpdate, onCancel, existingMember, isEditingSelf, 
     if (existingMember) {
         if (isEditingSelf && newPassword) {
             if (newPassword !== confirmPassword) {
-                setPasswordMessage({ type: 'error', text: 'Passwords do not match.' });
+                setPasswordMessage({ type: 'error', text: 'As senhas não coincidem.' });
                 return;
             }
             if (newPassword.length < 6) {
-                setPasswordMessage({ type: 'error', text: 'Password must be at least 6 characters long.' });
+                setPasswordMessage({ type: 'error', text: 'A senha deve ter pelo menos 6 caracteres.' });
                 return;
             }
             try {
                 const user = auth.currentUser;
                 if (user) {
                     await updatePassword(user, newPassword);
-                    setPasswordMessage({ type: 'success', text: 'Password updated successfully!' });
+                    setPasswordMessage({ type: 'success', text: 'Senha atualizada com sucesso!' });
                     setNewPassword('');
                     setConfirmPassword('');
                 } else {
@@ -161,7 +161,7 @@ export const MemberForm = ({ onUpdate, onCancel, existingMember, isEditingSelf, 
                 }
             } catch (error) {
                 console.error("Password update failed:", error);
-                setPasswordMessage({ type: 'error', text: `Failed to update password: ${error.message}` });
+                setPasswordMessage({ type: 'error', text: `Falha ao atualizar a senha: ${error.message}` });
                 return;
             }
         }
@@ -172,7 +172,7 @@ export const MemberForm = ({ onUpdate, onCancel, existingMember, isEditingSelf, 
         });
     } else {
         if (!member.name || !member.age || !email || !password) {
-          alert('Please fill in all fields.');
+          alert('Por favor, preencha todos os campos.');
           return;
         }
         try {
@@ -197,7 +197,7 @@ export const MemberForm = ({ onUpdate, onCancel, existingMember, isEditingSelf, 
   
   const formFields = [
     React.createElement('div', { key: 'name', },
-      React.createElement('label', { htmlFor: "name", className: "block text-sm font-medium text-gray-700" }, "이름"),
+      React.createElement('label', { htmlFor: "name", className: "block text-sm font-medium text-gray-700" }, "Nome"),
       React.createElement('input', { type: "text", name: "name", id: "name", value: member.name, onChange: handleChange, className: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue", required: true })
     ),
   ];
@@ -205,7 +205,7 @@ export const MemberForm = ({ onUpdate, onCancel, existingMember, isEditingSelf, 
   if (existingMember) {
       formFields.push(
           React.createElement('div', { key: 'email-readonly' },
-              React.createElement('label', { htmlFor: "email", className: "block text-sm font-medium text-gray-700" }, "이메일 (변경 불가)"),
+              React.createElement('label', { htmlFor: "email", className: "block text-sm font-medium text-gray-700" }, "E-mail (não pode ser alterado)"),
               React.createElement('input', { type: "email", name: "email", id: "email", value: email, readOnly: true, className: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 cursor-not-allowed" })
           )
       );
@@ -213,11 +213,11 @@ export const MemberForm = ({ onUpdate, onCancel, existingMember, isEditingSelf, 
       formFields.push(
         React.createElement(React.Fragment, { key: 'auth-fields' },
             React.createElement('div', null,
-              React.createElement('label', { htmlFor: "email", className: "block text-sm font-medium text-gray-700" }, "이메일"),
+              React.createElement('label', { htmlFor: "email", className: "block text-sm font-medium text-gray-700" }, "E-mail"),
               React.createElement('input', { type: "email", name: "email", id: "email", value: email, onChange: (e) => setEmail(e.target.value), className: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue", required: true })
             ),
             React.createElement('div', null,
-              React.createElement('label', { htmlFor: "password", className: "block text-sm font-medium text-gray-700" }, "비밀번호"),
+              React.createElement('label', { htmlFor: "password", className: "block text-sm font-medium text-gray-700" }, "Senha"),
               React.createElement('input', { type: "password", name: "password", id: "password", value: password, onChange: (e) => setPassword(e.target.value), className: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue", required: true })
             )
         )
@@ -227,21 +227,21 @@ export const MemberForm = ({ onUpdate, onCancel, existingMember, isEditingSelf, 
   formFields.push(
     React.createElement('div', { key: 'age-gender', className: "grid grid-cols-1 md:grid-cols-2 gap-6" },
       React.createElement('div', null,
-        React.createElement('label', { htmlFor: "age", className: "block text-sm font-medium text-gray-700" }, "나이"),
+        React.createElement('label', { htmlFor: "age", className: "block text-sm font-medium text-gray-700" }, "Idade"),
         React.createElement('input', { type: "number", name: "age", id: "age", value: member.age, onChange: handleChange, className: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue", required: true })
       ),
       React.createElement('div', null,
-        React.createElement('label', { htmlFor: "gender", className: "block text-sm font-medium text-gray-700" }, "성별"),
+        React.createElement('label', { htmlFor: "gender", className: "block text-sm font-medium text-gray-700" }, "Gênero"),
         React.createElement('select', { name: "gender", id: "gender", value: member.gender, onChange: handleChange, className: "mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 focus:outline-none focus:ring-brand-blue focus:border-brand-blue rounded-md shadow-sm" },
-          React.createElement('option', { value: Gender.MALE }, "남자"),
-          React.createElement('option', { value: Gender.FEMALE }, "여자")
+          React.createElement('option', { value: Gender.MALE }, "Masculino"),
+          React.createElement('option', { value: Gender.FEMALE }, "Feminino")
         )
       )
     ),
     React.createElement('div', { key: 'skill' },
       React.createElement('label', { htmlFor: "skillLevel", className: "block text-sm font-medium text-gray-700" },
-        "등급 ",
-        isSkillLevelDisabled && React.createElement('span', { className: "text-xs text-gray-500" }, "(운영진만 변경 가능)")
+        "Nível ",
+        isSkillLevelDisabled && React.createElement('span', { className: "text-xs text-gray-500" }, "(Somente administradores podem alterar)")
       ),
       React.createElement('select', {
         name: "skillLevel", id: "skillLevel", value: member.skillLevel, onChange: handleChange, disabled: isSkillLevelDisabled,
@@ -256,35 +256,35 @@ export const MemberForm = ({ onUpdate, onCancel, existingMember, isEditingSelf, 
 
   return (
     React.createElement('div', { className: "bg-white p-8 rounded-lg shadow-lg max-w-2xl mx-auto" },
-      React.createElement('h2', { className: "text-2xl font-bold mb-6 text-brand-blue" }, existingMember ? '회원 정보 수정' : '신규 회원 등록'),
+      React.createElement('h2', { className: "text-2xl font-bold mb-6 text-brand-blue" }, existingMember ? 'Editar Informações do Membro' : 'Cadastrar Novo Membro'),
       React.createElement('form', { onSubmit: handleSubmit, className: "space-y-6" },
         React.createElement('div', { className: "flex flex-col items-center space-y-4" },
           React.createElement('div', { className: "w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden" },
             preview ? React.createElement('img', { src: preview, alt: "Profile Preview", className: "w-full h-full object-cover" }) : React.createElement(UserIcon, { className: "w-16 h-16 text-gray-400" })
           ),
           React.createElement('label', { className: "cursor-pointer bg-brand-secondary text-white px-4 py-2 rounded-md hover:bg-brand-blue transition-colors" },
-            "Upload Photo",
+            "Enviar Foto",
             React.createElement('input', { type: "file", className: "hidden", accept: "image/*", onChange: handleFileChange })
           )
         ),
         ...formFields,
         error && React.createElement('p', { className: "text-red-500 text-sm text-center" }, error),
         isEditingSelf && React.createElement('div', { className: "pt-6 border-t space-y-4" },
-            React.createElement('h3', { className: "text-lg font-semibold text-gray-800" }, "비밀번호 변경"),
+            React.createElement('h3', { className: "text-lg font-semibold text-gray-800" }, "Alterar Senha"),
             React.createElement('div', null,
-                React.createElement('label', { htmlFor: "newPassword", className: "block text-sm font-medium text-gray-700" }, "새 비밀번호 (6자 이상)"),
+                React.createElement('label', { htmlFor: "newPassword", className: "block text-sm font-medium text-gray-700" }, "Nova Senha (mínimo 6 caracteres)"),
                 React.createElement('input', { type: "password", name: "newPassword", id: "newPassword", value: newPassword, onChange: (e) => setNewPassword(e.target.value), className: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue" })
             ),
             React.createElement('div', null,
-                React.createElement('label', { htmlFor: "confirmPassword", className: "block text-sm font-medium text-gray-700" }, "새 비밀번호 확인"),
+                React.createElement('label', { htmlFor: "confirmPassword", className: "block text-sm font-medium text-gray-700" }, "Confirmar Nova Senha"),
                 React.createElement('input', { type: "password", name: "confirmPassword", id: "confirmPassword", value: confirmPassword, onChange: (e) => setConfirmPassword(e.target.value), className: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue" })
             ),
             passwordMessage && React.createElement('p', { className: `text-sm text-center ${passwordMessage.type === 'success' ? 'text-green-600' : 'text-red-500'}` }, passwordMessage.text)
         ),
         React.createElement('div', { className: "flex justify-end space-x-4 pt-4" },
-          React.createElement('button', { type: "button", onClick: onCancel, className: "bg-gray-200 text-gray-800 font-bold py-2 px-6 rounded-lg hover:bg-gray-300" }, "Cancel"),
+          React.createElement('button', { type: "button", onClick: onCancel, className: "bg-gray-200 text-gray-800 font-bold py-2 px-6 rounded-lg hover:bg-gray-300" }, "Cancelar"),
           React.createElement('button', { type: "submit", className: "bg-brand-blue text-white font-bold py-2 px-6 rounded-lg hover:bg-opacity-90" },
-            existingMember ? '정보 수정' : '회원 등록'
+            existingMember ? 'Salvar Alterações' : 'Cadastrar Membro'
           )
         )
       )
