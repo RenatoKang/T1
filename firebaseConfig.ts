@@ -2,11 +2,12 @@
 // Go to your Firebase project -> Project settings (gear icon) -> General tab.
 // Under "Your apps", find your web app and look for "Firebase SDK snippet" and select "Config".
 export const firebaseConfig = {
-  apiKey: "AIzaSyBTVaX3Zehibr28k1bGNrsm5SbgGskPyOc",
-  authDomain: "group-manager-4bf13.firebaseapp.com",
-  projectId: "group-manager-4bf13",
-  storageBucket: "group-manager-4bf13.firebasestorage.app",
-  messagingSenderId: "267443011227",
-  appId: "1:267443011227:web:2549c7f399139cec43d03e",
-  measurementId: "G-NFNTCECPT3"
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  apiKey: "AIzaSyAAnMwq2JK_Uyfn92Rlt9FUyh2G1lPM3Jo",
+  authDomain: "tenisclubadm.firebaseapp.com",
+  projectId: "tenisclubadm",
+  storageBucket: "tenisclubadm.firebasestorage.app",
+  messagingSenderId: "415459968391",
+  appId: "1:415459968391:web:5b488b7f6682b6ae0aff22",
+  measurementId: "G-8F296T03HS"
 };

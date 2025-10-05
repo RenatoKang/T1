@@ -1,6 +1,7 @@
 
+
 import React, { useState, useEffect } from 'react';
-import { Member, View, Tournament, Role, CurrentUser } from './types';
+import { Member, View, Tournament, Role, CurrentUser, Gender, SkillLevel } from './types';
 import { Header } from './components/Header';
 import { MemberList } from './components/MemberList';
 import { MemberForm } from './components/MemberForm';
@@ -44,8 +45,34 @@ const App: React.FC = () => {
           const role = ADMIN_NAMES.includes(memberData.name) ? Role.ADMIN : Role.MEMBER;
           setCurrentUser({ ...memberData, id: user.uid, role });
         } else {
-          console.error("No member profile found for this user in Firestore.");
-          await signOut(auth);
+          // User is authenticated but has no profile. Redirect to the form to complete registration.
+          console.warn("User authenticated but no profile found. Forcing profile creation.");
+          
+          // Create a temporary user object to keep them logged in
+          setCurrentUser({
+            id: user.uid,
+            email: user.email!,
+            name: '', // Will be filled in the form
+            role: Role.MEMBER, // Default to member, role is determined by name on submit
+            gender: Gender.MALE,
+            age: 0,
+            profilePicUrl: null,
+            skillLevel: SkillLevel.MD,
+            dues: {},
+          });
+          
+          // Pre-populate the form with known data
+          setEditingMember({ 
+              id: user.uid,
+              email: user.email!,
+              name: user.displayName || '',
+              gender: Gender.MALE,
+              age: 20, // Default age
+              profilePicUrl: user.photoURL || null,
+              skillLevel: SkillLevel.MD,
+              dues: {}
+          });
+          setView(View.ADD_MEMBER);
         }
       } else {
         setCurrentUser(null);
@@ -94,13 +121,14 @@ const App: React.FC = () => {
 
   const handleUpdateMember = async (member: Member) => {
     const memberDocRef = doc(db, "members", member.id);
-    // Create a copy of the member object without the id to avoid writing it to the document
     const { id, ...memberData } = member;
+    // Using setDoc with merge will create the document if it doesn't exist, or update it if it does.
     await setDoc(memberDocRef, memberData, { merge: true });
     
     if (currentUser && currentUser.id === member.id) {
-        // Update current user state without changing the role
-        const updatedCurrentUser = { ...currentUser, ...memberData };
+        // Update current user state, recalculating the role based on the new name.
+        const role = ADMIN_NAMES.includes(memberData.name) ? Role.ADMIN : Role.MEMBER;
+        const updatedCurrentUser = { ...currentUser, ...memberData, role };
         setCurrentUser(updatedCurrentUser);
     }
 
