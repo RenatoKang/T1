@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { View } from '../types.js';
 
@@ -23,7 +22,7 @@ export const Header = ({ currentView, onNavigate, memberCount, currentUser, onLo
         React.createElement('div', { className: "flex items-center justify-between h-20" },
           React.createElement('div', { className: "flex items-center" },
             React.createElement(ShuttlecockIcon, { className: "h-8 w-8 text-shuttle-yellow" }),
-            React.createElement('h1', { className: "text-2xl font-bold text-white ml-3" }, "Gerenciador do Clube de Badminton")
+            React.createElement('h1', { className: "text-2xl font-bold text-white ml-3" }, "Gerenciador do Clube de Badminton BR")
           ),
           currentUser && (
             React.createElement('div', { className: "flex items-center space-x-4" },

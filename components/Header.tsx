@@ -30,7 +30,7 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate, memberC
         <div className="flex items-center justify-between h-20">
           <div className="flex items-center">
              <ShuttlecockIcon className="h-8 w-8 text-shuttle-yellow" />
-            <h1 className="text-2xl font-bold text-white ml-3">Gerenciador do Clube de Badminton</h1>
+            <h1 className="text-2xl font-bold text-white ml-3">Gerenciador do Clube de Badminton BR</h1>
           </div>
           {currentUser && (
             <div className="flex items-center space-x-4">
