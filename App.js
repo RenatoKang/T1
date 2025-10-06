@@ -24,46 +24,52 @@ const App = () => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const memberDocRef = doc(db, "members", user.uid);
-        const memberDocSnap = await getDoc(memberDocRef);
-        if (memberDocSnap.exists()) {
-          const memberData = memberDocSnap.data();
-          const role = ADMIN_NAMES.includes(memberData.name) ? Role.ADMIN : Role.MEMBER;
-          setCurrentUser({ ...memberData, id: user.uid, role });
-        } else {
-          // User is authenticated but has no profile. Redirect to the form to complete registration.
-          console.warn("User authenticated but no profile found. Forcing profile creation.");
-          
-          setCurrentUser({
-            id: user.uid,
-            email: user.email,
-            name: '', // Will be filled in the form
-            role: Role.MEMBER, // Default to member, role is determined by name on submit
-            gender: Gender.MALE,
-            age: 0,
-            profilePicUrl: null,
-            skillLevel: SkillLevel.MD,
-            dues: {},
-          });
-          
-          // Pre-populate the form with known data
-          setEditingMember({ 
+      try {
+        if (user) {
+          const memberDocRef = doc(db, "members", user.uid);
+          const memberDocSnap = await getDoc(memberDocRef);
+          if (memberDocSnap.exists()) {
+            const memberData = memberDocSnap.data();
+            const role = ADMIN_NAMES.includes(memberData.name) ? Role.ADMIN : Role.MEMBER;
+            setCurrentUser({ ...memberData, id: user.uid, role });
+          } else {
+            // User is authenticated but has no profile. Redirect to the form to complete registration.
+            console.warn("User authenticated but no profile found. Forcing profile creation.");
+            
+            setCurrentUser({
               id: user.uid,
               email: user.email,
-              name: user.displayName || '',
+              name: '', // Will be filled in the form
+              role: Role.MEMBER, // Default to member, role is determined by name on submit
               gender: Gender.MALE,
-              age: 20, // Default age
-              profilePicUrl: user.photoURL || null,
+              age: 0,
+              profilePicUrl: null,
               skillLevel: SkillLevel.MD,
-              dues: {}
-          });
-          setView(View.ADD_MEMBER);
+              dues: {},
+            });
+            
+            // Pre-populate the form with known data
+            setEditingMember({ 
+                id: user.uid,
+                email: user.email,
+                name: user.displayName || '',
+                gender: Gender.MALE,
+                age: 20, // Default age
+                profilePicUrl: user.photoURL || null,
+                skillLevel: SkillLevel.MD,
+                dues: {}
+            });
+            setView(View.ADD_MEMBER);
+          }
+        } else {
+          setCurrentUser(null);
         }
-      } else {
-        setCurrentUser(null);
+      } catch (error) {
+        console.error("Authentication check failed:", error);
+        setCurrentUser(null); // Ensure user is logged out on error
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     });
     return () => unsubscribe();
   }, []);
