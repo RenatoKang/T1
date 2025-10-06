@@ -1,7 +1,8 @@
 
+
 import React, { useState } from 'react';
 import { auth } from '../services/firebase.js';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 
 const ShuttlecockIcon = ({ className }) => (
     React.createElement('svg', { className, xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", fill: "currentColor" },
@@ -13,6 +14,7 @@ export const Login = ({ onNavigateToRegister }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [resetMessage, setResetMessage] = useState('');
 
     const handleLoginClick = async () => {
         if (!email || !password) {
@@ -20,6 +22,7 @@ export const Login = ({ onNavigateToRegister }) => {
             return;
         }
         setError('');
+        setResetMessage('');
         try {
             await signInWithEmailAndPassword(auth, email, password);
         } catch (err) {
@@ -32,6 +35,22 @@ export const Login = ({ onNavigateToRegister }) => {
         e.preventDefault();
         handleLoginClick();
     }
+
+    const handlePasswordReset = async () => {
+        if (!email) {
+            setError('Por favor, insira seu e-mail para redefinir a senha.');
+            return;
+        }
+        setError('');
+        setResetMessage('');
+        try {
+            await sendPasswordResetEmail(auth, email);
+            setResetMessage('Um link para redefinir a senha foi enviado para o seu e-mail.');
+        } catch (err) {
+            console.error(err);
+            setError('Falha ao enviar o e-mail de redefinição. Verifique o e-mail inserido.');
+        }
+    };
 
     return (
         React.createElement('div', { className: "flex items-center justify-center min-h-screen bg-gray-50" },
@@ -71,17 +90,23 @@ export const Login = ({ onNavigateToRegister }) => {
                     ),
                     
                     error && React.createElement('p', { className: "text-red-500 text-center text-sm" }, error),
+                    resetMessage && React.createElement('p', { className: "text-green-600 text-center text-sm" }, resetMessage),
 
                     React.createElement('div', { className: "space-y-4 pt-2" },
                         React.createElement('button', {
                             type: "submit",
                             className: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-brand-blue hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-blue"
                         }, "Entrar"),
-                        React.createElement('div', { className: "text-center" },
+                        React.createElement('div', { className: "flex justify-between items-center text-sm" },
+                             React.createElement('button', {
+                                type: "button",
+                                onClick: handlePasswordReset,
+                                className: "font-medium text-brand-blue hover:text-brand-secondary"
+                            }, "Esqueceu a senha?"),
                             React.createElement('button', {
                                 type: "button",
                                 onClick: onNavigateToRegister,
-                                className: "font-medium text-sm text-brand-blue hover:text-brand-secondary"
+                                className: "font-medium text-brand-blue hover:text-brand-secondary"
                             }, "Não tem uma conta? Cadastre-se")
                         )
                     )

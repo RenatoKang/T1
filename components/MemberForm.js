@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect } from 'react';
 import { Gender, SkillLevel, Role } from '../types.js';
 import { SKILL_LEVELS } from '../constants.js';
@@ -188,7 +189,11 @@ export const MemberForm = ({ onUpdate, onCancel, existingMember, isEditingSelf, 
             await setDoc(doc(db, "members", user.uid), newMemberProfile);
         } catch (error) {
             console.error("Registration failed:", error);
-            setError(error.message);
+            if (error.code === 'auth/email-already-in-use') {
+                setError('Este e-mail já está em uso. Tente fazer o login ou use um e-mail diferente.');
+            } else {
+                setError(error.message);
+            }
         }
     }
   };

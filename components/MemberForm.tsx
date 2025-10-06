@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect } from 'react';
 import { Member, Gender, SkillLevel, Role } from '../types';
 import { SKILL_LEVELS } from '../constants';
@@ -203,7 +204,11 @@ export const MemberForm: React.FC<MemberFormProps> = ({ onUpdate, onCancel, exis
             // onAuthStateChanged in App.tsx will handle login and redirect.
         } catch (error: any) {
             console.error("Registration failed:", error);
-            setError(error.message);
+            if (error.code === 'auth/email-already-in-use') {
+                setError('Este e-mail já está em uso. Tente fazer o login ou use um e-mail diferente.');
+            } else {
+                setError(error.message);
+            }
         }
     }
   };

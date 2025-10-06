@@ -1,8 +1,9 @@
 
 
+
 import React, { useState } from 'react';
 import { auth } from '../services/firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 
 interface LoginProps {
   onNavigateToRegister: () => void;
@@ -18,6 +19,7 @@ export const Login: React.FC<LoginProps> = ({ onNavigateToRegister }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [resetMessage, setResetMessage] = useState('');
 
     const handleLoginClick = async () => {
         if (!email || !password) {
@@ -25,6 +27,7 @@ export const Login: React.FC<LoginProps> = ({ onNavigateToRegister }) => {
             return;
         }
         setError('');
+        setResetMessage('');
         try {
             await signInWithEmailAndPassword(auth, email, password);
             // onAuthStateChanged in App.tsx will handle successful login
@@ -38,6 +41,22 @@ export const Login: React.FC<LoginProps> = ({ onNavigateToRegister }) => {
         e.preventDefault();
         handleLoginClick();
     }
+
+    const handlePasswordReset = async () => {
+        if (!email) {
+            setError('Por favor, insira seu e-mail para redefinir a senha.');
+            return;
+        }
+        setError('');
+        setResetMessage('');
+        try {
+            await sendPasswordResetEmail(auth, email);
+            setResetMessage('Um link para redefinir a senha foi enviado para o seu e-mail.');
+        } catch (err: any) {
+            console.error(err);
+            setError('Falha ao enviar o e-mail de redefinição. Verifique o e-mail inserido.');
+        }
+    };
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-50">
@@ -82,6 +101,8 @@ export const Login: React.FC<LoginProps> = ({ onNavigateToRegister }) => {
                     </div>
                     
                     {error && <p className="text-red-500 text-center text-sm">{error}</p>}
+                    {resetMessage && <p className="text-green-600 text-center text-sm">{resetMessage}</p>}
+
 
                     <div className="space-y-4 pt-2">
                         <button
@@ -90,11 +111,18 @@ export const Login: React.FC<LoginProps> = ({ onNavigateToRegister }) => {
                         >
                             Entrar
                         </button>
-                        <div className="text-center">
+                        <div className="flex justify-between items-center text-sm">
+                             <button
+                                type="button"
+                                onClick={handlePasswordReset}
+                                className="font-medium text-brand-blue hover:text-brand-secondary"
+                            >
+                                Esqueceu a senha?
+                            </button>
                             <button
                                 type="button"
                                 onClick={onNavigateToRegister}
-                                className="font-medium text-sm text-brand-blue hover:text-brand-secondary"
+                                className="font-medium text-brand-blue hover:text-brand-secondary"
                             >
                                 Não tem uma conta? Cadastre-se
                             </button>
